@@ -214,15 +214,26 @@ public class MainControlScript : CarryOverInfoScript {
 
             List<int> finalScoreList = new List<int> { player1Counter, player2Counter, player3Counter, player4Counter };
 
-            int duplicates = finalScoreList.GroupBy(x => x)
-                .Sum(x => x.Count() - 1);
-            if (duplicates > 1)
+            int max = finalScoreList.Max();
+
+            int counter = 0;
+
+            foreach (int i in finalScoreList)
+            {
+                if (i == max)
+                {
+                    counter++;
+                }
+            }
+
+            if (counter > 1)
             {
                 StartGame("We can't have a draw! Try again!");
             }
 
             if (gameOver && !gameFinished)
             {
+                Debug.Log(Max(player1Counter, player2Counter, player3Counter, player4Counter));
                 if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player1Counter)
                 {
                     playerWinnerStr = "Player1";
