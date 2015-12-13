@@ -20,7 +20,7 @@ public class MainControlScript : CarryOverInfoScript {
         static public bool player1AI, player2AI, player3AI, player4AI;
         static public float gameTimer;
      */
-
+    
     char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
     string[] playerButtonChoice = {"0", "0", "0", "0", "0", "0", "0", "0"};
     private string currPlayer1SelectedKey, currPlayer2SelectedKey, currPlayer3SelectedKey, currPlayer4SelectedKey;
@@ -35,6 +35,7 @@ public class MainControlScript : CarryOverInfoScript {
     private string playerWinnerStr;
     private bool gameFinished;
     public bool gameOn;
+    public float p1AIDelay, p2AIDelay, p3AIDelay, p4AIDelay;
 
     void SetPlayerKeys()
     {
@@ -70,6 +71,9 @@ public class MainControlScript : CarryOverInfoScript {
             TextClass.player2CounterText.text = "0";
             TextClass.player3CounterText.text = "0";
             TextClass.player4CounterText.text = "0";
+            player2AI = true;
+            player3AI = true;
+            player4AI = true;
             TextClass.p1Key1.text = playerButtonChoice[0];
             TextClass.p1Key2.text = playerButtonChoice[1];
             TextClass.p2Key1.text = playerButtonChoice[2];
@@ -107,16 +111,58 @@ public class MainControlScript : CarryOverInfoScript {
 	}
 
 
-    
 	void Update () {
         if (!gameOver && gameOn)
         {
             CheckPlayerInput();
             UpdateCounterText();
+            CheckAIInput();
         }
         CheckGameOver();
 	}
 
+    void CheckAIInput()
+    {
+        if (player1AI && p1AIDelay <= 0)
+        {
+            AIButtonInput_p1();
+        }
+
+        if (p1AIDelay >= 0)
+        {
+            p1AIDelay -= Time.deltaTime;
+        }
+
+        if (player2AI && p2AIDelay <= 0)
+        {
+            AIButtonInput_p2();
+        }
+
+        if (p2AIDelay >= 0)
+        {
+            p2AIDelay -= Time.deltaTime;
+        }
+
+        if (player3AI && p3AIDelay <= 0)
+        {
+            AIButtonInput_p3();
+        }
+
+        if (p3AIDelay >= 0)
+        {
+            p3AIDelay -= Time.deltaTime;
+        }
+
+        if (player4AI && p4AIDelay <= 0)
+        {
+            AIButtonInput_p4();
+        }
+
+        if (p4AIDelay >= 0)
+        {
+            p4AIDelay -= Time.deltaTime;
+        }
+    }
     void CheckPlayerInput()
     {
         if (Input.GetKeyDown(playerButtonChoice[0]) || Input.GetKeyDown(playerButtonChoice[1]) && !player1AI)
@@ -217,6 +263,77 @@ public class MainControlScript : CarryOverInfoScript {
             TextClass.player4CounterText.text = player4Counter.ToString();
             player4CounterOld = player4Counter;
         }
+    }
+
+
+    void AIButtonInput_p1()
+    {
+        p1AIDelay = getAIDelay();
+        if (prevPlayer1SelectedKey == playerButtonChoice[1])
+        {
+            currPlayer1SelectedKey = playerButtonChoice[0];
+        }
+        else
+        {
+            currPlayer1SelectedKey = playerButtonChoice[1];
+        }
+        player1Counter++;
+        p1BalloonGO.transform.localScale += expansionVector;
+        prevPlayer1SelectedKey = currPlayer1SelectedKey;
+    }
+
+    void AIButtonInput_p2()
+    {
+        p2AIDelay = getAIDelay();
+        if (prevPlayer2SelectedKey == playerButtonChoice[3])
+        {
+            currPlayer2SelectedKey = playerButtonChoice[2];
+        }
+        else
+        {
+            currPlayer2SelectedKey = playerButtonChoice[2];
+        }
+        player2Counter++;
+        p2BalloonGO.transform.localScale += expansionVector;
+        prevPlayer2SelectedKey = currPlayer2SelectedKey;
+    }
+
+    void AIButtonInput_p3()
+    {
+        p3AIDelay = getAIDelay();
+        if (prevPlayer3SelectedKey == playerButtonChoice[5])
+        {
+            currPlayer3SelectedKey = playerButtonChoice[4];
+        }
+        else
+        {
+            currPlayer3SelectedKey = playerButtonChoice[5];
+        }
+        player3Counter++;
+        p3BalloonGO.transform.localScale += expansionVector;
+        prevPlayer3SelectedKey = currPlayer3SelectedKey;
+    }
+
+    void AIButtonInput_p4()
+    {
+        p4AIDelay = getAIDelay();
+        if (prevPlayer4SelectedKey == playerButtonChoice[7])
+        {
+            currPlayer4SelectedKey = playerButtonChoice[6];
+        }
+        else
+        {
+            currPlayer4SelectedKey = playerButtonChoice[7];
+        }
+        player4Counter++;
+        p4BalloonGO.transform.localScale += expansionVector;
+        prevPlayer4SelectedKey = currPlayer4SelectedKey;
+    }
+        
+    public float getAIDelay()
+    {
+        float AIDelay = UnityEngine.Random.Range(0F, 0.15F);
+        return AIDelay;
     }
 
     public int Max(int p1Count, int p2Count, int p3Count, int p4Count)
