@@ -11,7 +11,7 @@ public class TextClass
 {
     public Text player1CounterText, player2CounterText, player3CounterText, player4CounterText;
     public Text p1Key1, p1Key2, p2Key1, p2Key2, p3Key1, p3Key2, p4Key1, p4Key2;
-    public Text startMessageText, startCountdownTimer;
+    public Text startMessageText, startCountdownTimer, flavourText;
 }
 
 public class MainControlScript : CarryOverInfoScript {
@@ -57,14 +57,16 @@ public class MainControlScript : CarryOverInfoScript {
         }
     }
 
-    void StartGame(string startMessage)
+    void StartGame(string startMessage, string flavourText)
     {
+        TextClass.flavourText.text = flavourText;
+        TextClass.startMessageText.text = "";
+        gameOn = false;
         StartCoroutine("StartDelayTimer");
         SetPlayerKeys();
-        gameFinished = false;
-            gameTimer = 5F;
-            GameTimer.GameTimerF = gameTimer;
-            TextClass.player1CounterText.text = "0";
+        gameTimer = 5F;
+        GameTimer.GameTimerF = gameTimer;
+        TextClass.player1CounterText.text = "0";
             TextClass.player2CounterText.text = "0";
             TextClass.player3CounterText.text = "0";
             TextClass.player4CounterText.text = "0";
@@ -76,18 +78,15 @@ public class MainControlScript : CarryOverInfoScript {
             TextClass.p3Key2.text = playerButtonChoice[5];
             TextClass.p4Key1.text = playerButtonChoice[6];
             TextClass.p4Key2.text = playerButtonChoice[7];
-            if (gameOn)
-            {
+            gameFinished = false;
 
-                gameOver = false;
-            }
     }
 
     IEnumerator StartDelayTimer()
     {
-        gameOn = false;
+        
         TextClass.startMessageText.text = "Find your keys!";
-        for (int i = 10; i >= 0; i--)
+        for (int i = 3; i >= 0; i--)
 			{
               TextClass.startCountdownTimer.text = i.ToString();
               if (i == 0)
@@ -97,13 +96,14 @@ public class MainControlScript : CarryOverInfoScript {
 			  yield return new WaitForSeconds (1);
 			}
         TextClass.startMessageText.text = "Get Pumping!";
+        TextClass.flavourText.text = "";
         gameOn = true;
     }
 
 	void Start () {
         TextClass.startMessageText.text = "";
         GameTimer = FindObjectOfType<GameTimer>();
-        StartGame("Get pumping!");
+        StartGame("Get pumping!", "Alternate keypress to pump the balloon. Biggest one wins!");
 	}
 
 
@@ -247,9 +247,12 @@ public class MainControlScript : CarryOverInfoScript {
                 }
             }
 
+            Debug.Log(counter);
             if (counter > 1)
             {
-                StartGame("We can't have a draw! Try again!");
+                gameOver = false;
+                gameFinished = false;
+                StartGame("We can't have a draw! Try again!", "We can't have a draw! Try again!");
             }
 
             if (gameOver && !gameFinished)
@@ -283,6 +286,7 @@ public class MainControlScript : CarryOverInfoScript {
     IEnumerator EndGame(string playerWinner)
     {
         TextClass.startMessageText.text = playerWinner + " is the Winner!";
-        yield return new WaitForSeconds(5F);
+        yield return new WaitForSeconds(2F);
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
