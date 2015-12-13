@@ -22,6 +22,7 @@ public class MainControlScript : CarryOverInfoScript {
         static public float gameTimer;
      */
 
+    AudioSource[] GMScriptAudioArray;
     PlayerAnimationController PlayerAnimationController;
     char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
     public string[] playerButtonChoice = {"0", "0", "0", "0", "0", "0", "0", "0"};
@@ -38,6 +39,7 @@ public class MainControlScript : CarryOverInfoScript {
     private bool gameFinished;
     public bool gameOn;
     public float p1AIDelay, p2AIDelay, p3AIDelay, p4AIDelay;
+    AudioSource startGameLoop, mainGameLoop, endGameLoop;
 
     void SetPlayerKeys()
     {
@@ -88,14 +90,17 @@ public class MainControlScript : CarryOverInfoScript {
             TextClass.p2WinCountText.text = p2Wins.ToString();
             TextClass.p3WinCountText.text = p3Wins.ToString();
             TextClass.p4WinCountText.text = p4Wins.ToString();
+            
+            
             gameFinished = false;
-
     }
 
     IEnumerator StartDelayTimer()
     {
-        
+        endGameLoop.Stop();
+        mainGameLoop.Stop();
         TextClass.startMessageText.text = "Find your keys!";
+        startGameLoop.Play();
         for (int i = 3; i >= 0; i--)
 			{
               TextClass.startCountdownTimer.text = i.ToString();
@@ -107,10 +112,17 @@ public class MainControlScript : CarryOverInfoScript {
 			}
         TextClass.startMessageText.text = "Get Pumping!";
         TextClass.flavourText.text = "";
+        startGameLoop.Stop();
+        mainGameLoop.Play();
         gameOn = true;
     }
 
 	void Start () {
+        
+        GMScriptAudioArray = GetComponents<AudioSource>();
+        startGameLoop = GMScriptAudioArray[0];
+        mainGameLoop = GMScriptAudioArray[1];
+        endGameLoop = GMScriptAudioArray[2];
         PlayerAnimationController = FindObjectOfType<PlayerAnimationController>();
         TextClass.startMessageText.text = "";
         GameTimer = FindObjectOfType<GameTimer>();
@@ -126,6 +138,19 @@ public class MainControlScript : CarryOverInfoScript {
             CheckAIInput();
         }
         CheckGameOver();
+
+        if (gameFinished)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.LoadLevel("");
+            }
+        }
 	}
 
     void CheckAIInput()
@@ -409,7 +434,11 @@ public class MainControlScript : CarryOverInfoScript {
 
     IEnumerator EndGame(string playerWinner)
     {
+        mainGameLoop.Stop();
+        endGameLoop.Play();
         TextClass.startMessageText.text = playerWinner + " is the Winner!";
+        TextClass.flavourText.text = "Space to Restart, Escape to return to Main Menu";
+
         switch (playerWinner)
         {
             case("Player 1"):
@@ -426,6 +455,7 @@ public class MainControlScript : CarryOverInfoScript {
                 break;
         }
         yield return new WaitForSeconds(2F);
-        Application.LoadLevel(Application.loadedLevel);
+        
+        
     }
 }
