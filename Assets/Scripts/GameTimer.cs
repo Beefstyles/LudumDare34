@@ -11,11 +11,16 @@ public class GameTimer : MonoBehaviour {
     public Text GameTimerTextSeconds;
     public Text GameTimerColon;
     public float GameTimerF;
-    
+    MainControlScript MainControlScript;
+
+    void Start()
+    {
+        MainControlScript = FindObjectOfType<MainControlScript>();
+    }
 
     void Update()
     {
-        if (GameTimerF >= 0)
+        if (GameTimerF >= 0 && MainControlScript.gameOn)
         {
             GameTimerF -= Time.deltaTime;
             gameTimerMinutes = Mathf.FloorToInt(GameTimerF / 60);

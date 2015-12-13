@@ -11,7 +11,7 @@ public class TextClass
 {
     public Text player1CounterText, player2CounterText, player3CounterText, player4CounterText;
     public Text p1Key1, p1Key2, p2Key1, p2Key2, p3Key1, p3Key2, p4Key1, p4Key2;
-    public Text startMessageText, startCountdownText;
+    public Text startMessageText, startCountdownTimer;
 }
 
 public class MainControlScript : CarryOverInfoScript {
@@ -34,6 +34,7 @@ public class MainControlScript : CarryOverInfoScript {
     public bool gameOver;
     private string playerWinnerStr;
     private bool gameFinished;
+    public bool gameOn;
 
     void SetPlayerKeys()
     {
@@ -54,30 +55,50 @@ public class MainControlScript : CarryOverInfoScript {
             }
             playerButtonChoice[i] = selectedLetterStr;
         }
-        gameOver = false;
     }
 
     void StartGame(string startMessage)
     {
-        TextClass.startMessageText.text = startMessage;
+        StartCoroutine("StartDelayTimer");
         SetPlayerKeys();
         gameFinished = false;
-        gameTimer = 5F;
-        GameTimer.GameTimerF = gameTimer;
-        TextClass.player1CounterText.text = "0";
-        TextClass.player2CounterText.text = "0";
-        TextClass.player3CounterText.text = "0";
-        TextClass.player4CounterText.text = "0";
-        TextClass.p1Key1.text = playerButtonChoice[0];
-        TextClass.p1Key2.text = playerButtonChoice[1];
-        TextClass.p2Key1.text = playerButtonChoice[2];
-        TextClass.p2Key2.text = playerButtonChoice[3];
-        TextClass.p3Key1.text = playerButtonChoice[4];
-        TextClass.p3Key2.text = playerButtonChoice[5];
-        TextClass.p4Key1.text = playerButtonChoice[6];
-        TextClass.p4Key2.text = playerButtonChoice[7];
+            gameTimer = 5F;
+            GameTimer.GameTimerF = gameTimer;
+            TextClass.player1CounterText.text = "0";
+            TextClass.player2CounterText.text = "0";
+            TextClass.player3CounterText.text = "0";
+            TextClass.player4CounterText.text = "0";
+            TextClass.p1Key1.text = playerButtonChoice[0];
+            TextClass.p1Key2.text = playerButtonChoice[1];
+            TextClass.p2Key1.text = playerButtonChoice[2];
+            TextClass.p2Key2.text = playerButtonChoice[3];
+            TextClass.p3Key1.text = playerButtonChoice[4];
+            TextClass.p3Key2.text = playerButtonChoice[5];
+            TextClass.p4Key1.text = playerButtonChoice[6];
+            TextClass.p4Key2.text = playerButtonChoice[7];
+            if (gameOn)
+            {
+
+                gameOver = false;
+            }
     }
 
+    IEnumerator StartDelayTimer()
+    {
+        gameOn = false;
+        TextClass.startMessageText.text = "Find your keys!";
+        for (int i = 10; i >= 0; i--)
+			{
+              TextClass.startCountdownTimer.text = i.ToString();
+              if (i == 0)
+              {
+                  TextClass.startCountdownTimer.text = "";
+              }
+			  yield return new WaitForSeconds (1);
+			}
+        TextClass.startMessageText.text = "Get Pumping!";
+        gameOn = true;
+    }
 
 	void Start () {
         TextClass.startMessageText.text = "";
@@ -88,7 +109,7 @@ public class MainControlScript : CarryOverInfoScript {
 
     
 	void Update () {
-        if (!gameOver)
+        if (!gameOver && gameOn)
         {
             CheckPlayerInput();
             UpdateCounterText();
