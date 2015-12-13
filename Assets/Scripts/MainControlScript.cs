@@ -4,12 +4,14 @@ using System.Text;
 using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class TextClass
 {
     public Text player1CounterText, player2CounterText, player3CounterText, player4CounterText;
     public Text p1Key1, p1Key2, p2Key1, p2Key2, p3Key1, p3Key2, p4Key1, p4Key2;
+    public Text startMessageText, startCountdownText;
 }
 
 public class MainControlScript : CarryOverInfoScript {
@@ -31,6 +33,7 @@ public class MainControlScript : CarryOverInfoScript {
     private Vector3 expansionVector = new Vector3(0.005F, 0.005F, 0);
     public bool gameOver;
     private string playerWinnerStr;
+    private bool gameFinished;
 
     void SetPlayerKeys()
     {
@@ -54,10 +57,11 @@ public class MainControlScript : CarryOverInfoScript {
         gameOver = false;
     }
 
-
-	void Start () {
+    void StartGame(string startMessage)
+    {
+        TextClass.startMessageText.text = startMessage;
         SetPlayerKeys();
-        GameTimer = FindObjectOfType<GameTimer>();
+        gameFinished = false;
         gameTimer = 5F;
         GameTimer.GameTimerF = gameTimer;
         TextClass.player1CounterText.text = "0";
@@ -72,6 +76,13 @@ public class MainControlScript : CarryOverInfoScript {
         TextClass.p3Key2.text = playerButtonChoice[5];
         TextClass.p4Key1.text = playerButtonChoice[6];
         TextClass.p4Key2.text = playerButtonChoice[7];
+    }
+
+
+	void Start () {
+        TextClass.startMessageText.text = "";
+        GameTimer = FindObjectOfType<GameTimer>();
+        StartGame("Get pumping!");
 	}
 
 
@@ -192,41 +203,54 @@ public class MainControlScript : CarryOverInfoScript {
         return Math.Max(p1Count, Math.Max(p2Count, Math.Max(p3Count, p4Count)));
     }
     void CheckGameOver()
-    { 
+    {
         if (GameTimer.GameTimerF <= 0)
         {
             gameOver = true;
         }
-        
-        if (gameOver)
+
+        if (gameOver && !gameFinished)
         {
-            
-            if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player1Counter)
+
+            List<int> finalScoreList = new List<int> { player1Counter, player2Counter, player3Counter, player4Counter };
+
+            int duplicates = finalScoreList.GroupBy(x => x)
+                .Sum(x => x.Count() - 1);
+            if (duplicates > 1)
             {
-                playerWinnerStr = "Player1";
+                StartGame("We can't have a draw! Try again!");
             }
 
-            else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player2Counter)
+            if (gameOver && !gameFinished)
             {
-                playerWinnerStr = "Player2";
-            }
+                if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player1Counter)
+                {
+                    playerWinnerStr = "Player1";
+                }
 
-            else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player3Counter)
-            {
-                playerWinnerStr = "Player3";
-            }
+                else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player2Counter)
+                {
+                    playerWinnerStr = "Player2";
+                }
 
-            else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player4Counter)
-            {
-                playerWinnerStr = "Player4";
+                else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player3Counter)
+                {
+                    playerWinnerStr = "Player3";
+                }
+
+                else if (Max(player1Counter, player2Counter, player3Counter, player4Counter) == player4Counter)
+                {
+                    playerWinnerStr = "Player4";
+                }
+                StartCoroutine("EndGame", playerWinnerStr);
+                gameFinished = true;
             }
-            StartCoroutine("EndGame", playerWinnerStr);
         }
     }
 
     IEnumerator EndGame(string playerWinner)
     {
-        Debug.Log(playerWinner);
+        TextClass.startMessageText.text = playerWinner + " is the Winner!";
         yield return new WaitForSeconds(5F);
     }
 }

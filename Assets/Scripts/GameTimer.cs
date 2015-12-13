@@ -9,26 +9,35 @@ public class GameTimer : MonoBehaviour {
     private string gameTimerSecondsString;
     public Text GameTimerTextMinutes;
     public Text GameTimerTextSeconds;
+    public Text GameTimerColon;
     public float GameTimerF;
     
 
-    // Update is called once per frame
     void Update()
     {
         if (GameTimerF >= 0)
         {
             GameTimerF -= Time.deltaTime;
+            gameTimerMinutes = Mathf.FloorToInt(GameTimerF / 60);
+            gameTimerSeconds = Mathf.FloorToInt(GameTimerF - (gameTimerMinutes * 60));
+            GameTimerTextMinutes.text = gameTimerMinutes.ToString();
+            gameTimerSecondsString = gameTimerSeconds.ToString();
+            if (gameTimerSecondsString.Length < 2)
+            {
+                gameTimerSecondsString = "0" + gameTimerSeconds;
+            }
+            GameTimerTextSeconds.text = gameTimerSecondsString;
         }
 
-        gameTimerMinutes = Mathf.FloorToInt(GameTimerF / 60);
-        gameTimerSeconds = Mathf.FloorToInt(GameTimerF - (gameTimerMinutes * 60));
-        GameTimerTextMinutes.text = gameTimerMinutes.ToString();
-        gameTimerSecondsString = gameTimerSeconds.ToString();
-        if (gameTimerSecondsString.Length < 2)
+        if (GameTimerF <= 0)
         {
-            gameTimerSecondsString = "0" + gameTimerSeconds;
+            GameTimerColon.text = "";
+            GameTimerTextMinutes.text = "";
+            GameTimerTextSeconds.text = "";
         }
-        GameTimerTextSeconds.text = gameTimerSecondsString;
 
+
+
+        
     }
 }
