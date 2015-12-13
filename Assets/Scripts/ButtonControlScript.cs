@@ -10,6 +10,7 @@ public class ButtonControlScript : MonoBehaviour {
         CarryOverInfoScript.player2AI = true;
         CarryOverInfoScript.player3AI = true;
         CarryOverInfoScript.player4AI = true;
+        StartTheGame();
     }
 
     public void TwoPlayersSelected()
@@ -18,6 +19,7 @@ public class ButtonControlScript : MonoBehaviour {
         CarryOverInfoScript.player2AI = false;
         CarryOverInfoScript.player3AI = true;
         CarryOverInfoScript.player4AI = true;
+        StartTheGame();
     }
 
     public void ThreePlayersSelected()
@@ -26,6 +28,7 @@ public class ButtonControlScript : MonoBehaviour {
         CarryOverInfoScript.player2AI = false;
         CarryOverInfoScript.player3AI = false;
         CarryOverInfoScript.player4AI = true;
+        StartTheGame();
     }
 
     public void FourPlayersSelected()
@@ -34,5 +37,11 @@ public class ButtonControlScript : MonoBehaviour {
         CarryOverInfoScript.player2AI = false;
         CarryOverInfoScript.player3AI = false;
         CarryOverInfoScript.player4AI = false;
+        StartTheGame();
+    }
+
+    void StartTheGame()
+    {
+        Application.LoadLevel("mainLevel");
     }
 }

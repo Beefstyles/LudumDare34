@@ -69,15 +69,17 @@ public class MainControlScript : CarryOverInfoScript {
         gameOn = false;
         StartCoroutine("StartDelayTimer");
         SetPlayerKeys();
+        //TODO - Add a random number generator for gameTimer to give some variation
         gameTimer = 5F;
         GameTimer.GameTimerF = gameTimer;
         TextClass.player1CounterText.text = "0";
             TextClass.player2CounterText.text = "0";
             TextClass.player3CounterText.text = "0";
             TextClass.player4CounterText.text = "0";
-            player2AI = true;
+            /*player2AI = true;
             player3AI = true;
             player4AI = true;
+             */
             TextClass.p1Key1.text = playerButtonChoice[0].ToUpper();
             TextClass.p1Key2.text = playerButtonChoice[1].ToUpper();
             TextClass.p2Key1.text = playerButtonChoice[2].ToUpper();
@@ -101,7 +103,9 @@ public class MainControlScript : CarryOverInfoScript {
         mainGameLoop.Stop();
         TextClass.startMessageText.text = "Find your keys!";
         startGameLoop.Play();
-        for (int i = 3; i >= 0; i--)
+        //TODO - Add a RNG to this as well
+        int maxCountDownTimer = 4;
+        for (int i = maxCountDownTimer; i >= 0; i--)
 			{
               TextClass.startCountdownTimer.text = i.ToString();
               if (i == 0)
