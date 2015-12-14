@@ -69,7 +69,7 @@ public class MainControlScript : CarryOverInfoScript {
         gameOn = false;
         StartCoroutine("StartDelayTimer");
         SetPlayerKeys();
-        gameTimer = UnityEngine.Random.Range(30F, 90F);
+        gameTimer = UnityEngine.Random.Range(20F, 45F);
         GameTimer.GameTimerF = gameTimer;
         TextClass.player1CounterText.text = "0";
             TextClass.player2CounterText.text = "0";
@@ -147,7 +147,7 @@ public class MainControlScript : CarryOverInfoScript {
 
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Application.LoadLevel("");
+                Application.LoadLevel("mainScreen");
             }
         }
 	}
@@ -250,7 +250,7 @@ public class MainControlScript : CarryOverInfoScript {
             prevPlayer3SelectedKey = currPlayer3SelectedKey;
         }
 
-        if (Input.GetKeyDown(playerButtonChoice[6]) || Input.GetKeyDown(playerButtonChoice[6]) && !player4AI)
+        if (Input.GetKeyDown(playerButtonChoice[6]) || Input.GetKeyDown(playerButtonChoice[7]) && !player4AI)
         {
             if (Input.GetKeyDown(playerButtonChoice[6]))
             {
@@ -260,7 +260,7 @@ public class MainControlScript : CarryOverInfoScript {
             {
                 currPlayer4SelectedKey = playerButtonChoice[7];
             }
-            if (currPlayer4SelectedKey != prevPlayer2SelectedKey)
+            if (currPlayer4SelectedKey != prevPlayer4SelectedKey)
             {
                 player4Counter++;
                 p4BalloonGO.transform.localScale += expansionVector;

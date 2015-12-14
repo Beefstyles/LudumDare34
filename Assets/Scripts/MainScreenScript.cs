@@ -14,5 +14,10 @@ public class MainScreenScript : MonoBehaviour {
         {
             Application.LoadLevel("playerNumberPickScreen");
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 	}
 }
