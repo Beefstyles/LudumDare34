@@ -69,17 +69,13 @@ public class MainControlScript : CarryOverInfoScript {
         gameOn = false;
         StartCoroutine("StartDelayTimer");
         SetPlayerKeys();
-        //TODO - Add a random number generator for gameTimer to give some variation
-        gameTimer = 5F;
+        gameTimer = UnityEngine.Random.Range(30F, 90F);
         GameTimer.GameTimerF = gameTimer;
         TextClass.player1CounterText.text = "0";
             TextClass.player2CounterText.text = "0";
             TextClass.player3CounterText.text = "0";
             TextClass.player4CounterText.text = "0";
-            /*player2AI = true;
-            player3AI = true;
-            player4AI = true;
-             */
+            
             TextClass.p1Key1.text = playerButtonChoice[0].ToUpper();
             TextClass.p1Key2.text = playerButtonChoice[1].ToUpper();
             TextClass.p2Key1.text = playerButtonChoice[2].ToUpper();
@@ -103,8 +99,7 @@ public class MainControlScript : CarryOverInfoScript {
         mainGameLoop.Stop();
         TextClass.startMessageText.text = "Find your keys!";
         startGameLoop.Play();
-        //TODO - Add a RNG to this as well
-        int maxCountDownTimer = 4;
+        int maxCountDownTimer = UnityEngine.Random.Range(3, 7);
         for (int i = maxCountDownTimer; i >= 0; i--)
 			{
               TextClass.startCountdownTimer.text = i.ToString();
@@ -130,7 +125,7 @@ public class MainControlScript : CarryOverInfoScript {
         PlayerAnimationController = FindObjectOfType<PlayerAnimationController>();
         TextClass.startMessageText.text = "";
         GameTimer = FindObjectOfType<GameTimer>();
-        StartGame("Get pumping!", "Alternate keypress to pump up the balloon. Biggest one wins!");
+        StartGame("Get pumping!", "Biggest balloon wins!");
 	}
 
 
@@ -368,7 +363,7 @@ public class MainControlScript : CarryOverInfoScript {
         
     public float getAIDelay()
     {
-        float AIDelay = UnityEngine.Random.Range(0F, 0.15F);
+        float AIDelay = UnityEngine.Random.Range(0F, UnityEngine.Random.Range(0.10F,0.3F));
         return AIDelay;
     }
 

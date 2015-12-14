@@ -536,7 +536,7 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -259, y: -303}
+  m_AnchoredPosition: {x: -236, y: -297}
   m_SizeDelta: {x: 367, y: 71}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &951164579
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f91d272cb52e7ef458603f6e3194f4bd, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
@@ -717,7 +717,7 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 276, y: -303}
+  m_AnchoredPosition: {x: 299, y: -297}
   m_SizeDelta: {x: 367, y: 71}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1209648001
@@ -734,7 +734,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f91d272cb52e7ef458603f6e3194f4bd, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
@@ -783,7 +783,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -263, y: 143}
+  m_AnchoredPosition: {x: -240, y: 149}
   m_SizeDelta: {x: 367, y: 71}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1310974259
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f91d272cb52e7ef458603f6e3194f4bd, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
@@ -849,7 +849,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 276, y: 143}
+  m_AnchoredPosition: {x: 299, y: 149}
   m_SizeDelta: {x: 367, y: 71}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1528121327
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f91d272cb52e7ef458603f6e3194f4bd, type: 3}
     m_FontSize: 300
     m_FontStyle: 0
     m_BestFit: 0
@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 88af33bcb501c254b821dd7b396b3c21, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
@@ -1298,7 +1298,7 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 4
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Pick Number of Human Players (rest will be AI)
@@ -1322,6 +1322,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -2, y: 457}
-  m_SizeDelta: {x: 367, y: 71}
+  m_AnchoredPosition: {x: 27, y: 429}
+  m_SizeDelta: {x: 1182, y: 71}
   m_Pivot: {x: .5, y: .5}
